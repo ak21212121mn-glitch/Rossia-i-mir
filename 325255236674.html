@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Россия и Мир | Исследование | Автор Одинаев Мехроз</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #f9fafb; color: #0f172a; line-height: 1.5; scroll-behavior: smooth; }
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 32px; }
+    .navbar { background: rgba(255,255,255,0.98); backdrop-filter: blur(8px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #e2e8f0; }
+    .nav-container { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 14px 0; }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 1.4rem; }
+    .logo i { color: #dc2626; font-size: 1.7rem; }
+    .logo span { background: linear-gradient(135deg, #1e3a5f, #b91c1c); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { text-decoration: none; font-weight: 500; color: #334155; transition: 0.2s; }
+    .nav-links a:hover { color: #dc2626; }
+    .hero { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); color: white; padding: 64px 0 56px; }
+    .hero-grid { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 40px; }
+    .hero-text h1 { font-size: 3rem; font-weight: 800; margin-bottom: 20px; }
+    .hero-text p { font-size: 1.1rem; color: #cbd5e1; max-width: 90%; }
+    .hero-stats { display: flex; gap: 24px; margin-top: 28px; flex-wrap: wrap; }
+    .hero-stats span { background: rgba(255,255,255,0.1); padding: 8px 18px; border-radius: 40px; font-size: 0.85rem; }
+    section { padding: 70px 0; border-bottom: 1px solid #eef2f8; }
+    .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 12px; color: #0f172a; }
+    .section-title:after { content: ''; display: block; width: 70px; height: 4px; background: #dc2626; margin-top: 10px; border-radius: 4px; }
+    .section-sub { color: #475569; margin-bottom: 48px; font-size: 1rem; }
+    .team-grid, .chapters-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
+    .member-card, .chapter-card { background: white; border-radius: 28px; padding: 24px; border: 1px solid #eef2f8; transition: 0.2s; }
+    .member-card:hover { transform: translateY(-4px); box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1); }
+    .member-icon { font-size: 2rem; background: #fef2f2; width: 56px; height: 56px; display: flex; align-items: center; justify-content: center; border-radius: 28px; margin-bottom: 18px; color: #dc2626; }
+    .member-name { font-size: 1.3rem; font-weight: 700; }
+    .member-country { font-size: 0.8rem; color: #dc2626; font-weight: 600; margin: 4px 0 8px; }
+    .relation-card, .poll-card { background: white; border-radius: 28px; padding: 28px; border: 1px solid #eef2f8; transition: 0.2s; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+    .relation-card:hover, .poll-card:hover { transform: translateY(-4px); box-shadow: 0 20px 30px -12px rgba(0,0,0,0.08); }
+    .relations-grid, .polls-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 32px; margin: 32px 0; }
+    .relation-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 16px; }
+    .relation-flag { font-size: 2.8rem; }
+    .relation-title h3 { font-size: 1.5rem; font-weight: 700; }
+    .relation-stats { background: #f8fafc; border-radius: 24px; padding: 16px; margin: 18px 0; display: flex; flex-wrap: wrap; gap: 12px; }
+    .stat-badge { background: white; padding: 6px 12px; border-radius: 40px; font-weight: 600; font-size: 0.8rem; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+    .poll-question { font-weight: 700; font-size: 1rem; margin-bottom: 18px; display: flex; gap: 10px; align-items: center; }
+    .poll-option { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 60px; padding: 10px 16px; margin-bottom: 10px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: 0.2s; }
+    .poll-option:hover { background: #fef2f2; border-color: #dc2626; }
+    .poll-vote-btn { background: #dc2626; color: white; border: none; padding: 8px 20px; border-radius: 40px; font-weight: 600; margin-top: 12px; cursor: pointer; width: 100%; }
+    .poll-vote-btn:hover { background: #b91c1c; }
+    .poll-results { margin-top: 20px; background: #f1f5f9; border-radius: 20px; padding: 16px; font-size: 0.8rem; }
+    .result-bar { background: #e2e8f0; border-radius: 20px; height: 8px; margin: 6px 0 10px; overflow: hidden; }
+    .result-fill { background: #dc2626; width: 0%; height: 100%; border-radius: 20px; }
+    .reset-poll-btn { background: none; border: none; color: #dc2626; font-size: 0.7rem; cursor: pointer; margin-top: 10px; }
+    .expo-block { background: #0f172a; border-radius: 40px; padding: 44px 40px; color: white; }
+    .expo-grid { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 32px; }
+    .expo-sector { background: rgba(255,255,255,0.08); border-radius: 24px; padding: 20px; flex: 1; min-width: 180px; }
+    .stats-russia { display: flex; flex-wrap: wrap; gap: 32px; background: #f1f5f9; border-radius: 40px; padding: 40px; justify-content: space-between; }
+    .stat-number { font-size: 2.4rem; font-weight: 800; color: #dc2626; }
+    .author-card { text-align: center; background: linear-gradient(135deg, #fff7ed, #ffffff); border-radius: 40px; padding: 32px; margin-top: 32px; border: 1px solid #ffedd5; }
+    footer { background: #0f172a; color: #94a3b8; padding: 48px 0 32px; }
+    .badge-rus { background: #fef3c7; color: #92400e; padding: 4px 12px; border-radius: 40px; font-size: 0.7rem; font-weight: 600; display: inline-block; }
+    @media (max-width: 780px) { .container { padding: 0 20px; } .hero-text h1 { font-size: 2rem; } }
+  </style>
+</head>
+
+<body>
+
+  <header class="navbar">
+    <div class="container nav-container">
+      <div class="logo"><i class="fas fa-globe-europe"></i><span>РОССИЯ & МИР</span></div>
+      <ul class="nav-links">
+        <li><a href="#team">Команда</a></li>
+        <li><a href="#relations">Отношения</a></li>
+        <li><a href="#research">Исследование</a></li>
+        <li><a href="#exhibition">Выставка</a></li>
+        <li><a href="#polls">Опросы (5)</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <h1>Россия и мир:<br>многополярная дипломатия</h1>
+          <p>Глубокий анализ отношений России с ключевыми партнёрами. Исследование международной команды.</p>
+          <div class="hero-stats"><span><i class="fas fa-users"></i> 6 участников</span><span><i class="fas fa-globe"></i> 5 стран</span><span><i class="fas fa-chart-line"></i> 5 опросов</span></div>
+        </div>
+        <div><i class="fas fa-handshake" style="font-size: 4rem; background: #ffffff20; padding: 20px; border-radius: 60px;"></i></div>
+      </div>
+    </section>
+
+    <!-- КОМАНДА -->
+    <section id="team">
+      <div class="container">
+        <h2 class="section-title">Наша команда</h2>
+        <div class="section-sub">Исследователи из пяти стран, каждый эксперт по своему направлению.</div>
+        <div class="team-grid">
+          <div class="member-card">
+            <div class="member-icon"><i class="fas fa-pen-fancy"></i></div>
+            <div class="member-name">Одинаев Мехроз</div>
+            <div class="member-country">🇹🇯 Таджикистан</div>
+            <div class="research-topic"><strong>Автор исследования</strong> — геополитика, общая концепция, координация работы.</div>
+          </div>
+          <div class="member-card">
+            <div class="member-icon"><i class="fas fa-tree"></i></div>
+            <div class="member-name">Агоро-Госси Алуру</div>
+            <div class="member-country">🇨🇬 Конго</div>
+            <div class="research-topic">Россия – Африка: энергетика, Росатом, саммиты.</div>
+          </div>
+          <div class="member-card">
+            <div class="member-icon"><i class="fas fa-pyramid"></i></div>
+            <div class="member-name">Гадалла Мохамед</div>
+            <div class="member-country">🇪🇬 Египет</div>
+            <div class="research-topic">Ближний Восток: АЭС, зерно, туризм.</div>
+          </div>
+          <div class="member-card">
+            <div class="member-icon"><i class="fas fa-mountain"></i></div>
+            <div class="member-name">Джураев Идрис</div>
+            <div class="member-country">🇹🇯 Таджикистан</div>
+            <div class="research-topic">Центральная Азия: интеграция, миграция.</div>
+          </div>
+          <div class="member-card">
+            <div class="member-icon"><i class="fas fa-dragon"></i></div>
+            <div class="member-name">Фам Тхи Тхюи Фыонг</div>
+            <div class="member-country">🇻🇳 Вьетнам</div>
+            <div class="research-topic">Вьетнам – Россия: нефтегаз, наследие СССР.</div>
+          </div>
+          <div class="member-card">
+            <div class="member-icon"><i class="fas fa-church"></i></div>
+            <div class="member-name">Юнан Кероллос</div>
+            <div class="member-country">🇪🇬 Египет</div>
+            <div class="research-topic">Культурная дипломатия, русский язык.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ПОДРОБНО ОТНОШЕНИЯ РОССИИ СО СТРАНАМИ -->
+    <section id="relations">
+      <div class="container">
+        <h2 class="section-title">Геополитика: Россия и страны мира</h2>
+        <div class="section-sub">Детальный разбор ключевых направлений внешней политики РФ — цифры, проекты, перспективы.</div>
+        <div class="relations-grid">
+          <div class="relation-card">
+            <div class="relation-header">
+              <div class="relation-flag">🇨🇳</div>
+              <div class="relation-title">
+                <h3>Китай</h3>
+                <p>Всеобъемлющее партнёрство</p>
+              </div>
+            </div>
+            <div class="relation-stats"><span class="stat-badge">📊 Товарооборот: $240 млрд</span><span class="stat-badge">⚡ Газ: 80 млн тонн</span></div>
+            <div class="relation-desc">Совместные проекты: «Сила Сибири», сотрудничество в БРИКС, ШОС, военные учения. Дедолларизация расчётов, лидеры встречались более 40 раз.</div>
+            <div class="badge-rus">+26% рост торговли за год</div>
+          </div>
+          <div class="relation-card">
+            <div class="relation-header">
+              <div class="relation-flag">🇮🇳</div>
+              <div class="relation-title">
+                <h3>Индия</h3>
+                <p>Привилегированное стратегическое</p>
+              </div>
+            </div>
+            <div class="relation-stats"><span class="stat-badge">💰 Оборона: $15 млрд</span><span class="stat-badge">⚛️ АЭС Куданкулам</span></div>
+            <div class="relation-desc">Поставки С-400, ракеты «БраМос», космос, фармацевтика. Координация в ООН, БРИКС, ШОС.</div>
+            <div class="badge-rus">Контракты до 2030 года</div>
+          </div>
+          <div class="relation-card">
+            <div class="relation-header">
+              <div class="relation-flag">🌍</div>
+              <div class="relation-title">
+                <h3>Африка</h3>
+                <p>Новый рассвет — возвращение РФ</p>
+              </div>
+            </div>
+            <div class="relation-stats"><span class="stat-badge">🏭 Росатом: 8 стран</span><span class="stat-badge">📈 Торговля: $20 млрд</span></div>
+            <div class="relation-desc">АЭС в Египте, поставки оружия (Алжир, Ангола), зерно, центры русского языка. Саммиты Россия-Африка 2019 и 2023.</div>
+            <div class="badge-rus">40+ соглашений с африканскими странами</div>
+          </div>
+          <div class="relation-card">
+            <div class="relation-header">
+              <div class="relation-flag">🇸🇾🇪🇬</div>
+              <div class="relation-title">
+                <h3>Ближний Восток</h3>
+                <p>Энергетика, безопасность, дипломатия</p>
+              </div>
+            </div>
+            <div class="relation-stats"><span class="stat-badge">⚡ АЭС «Эд-Дабаа»: $30 млрд</span><span class="stat-badge">🛢️ ОПЕК+ координация</span></div>
+            <div class="relation-desc">Россия — ключевой игрок в Сирии, отношения с Саудовской Аравией и ОАЭ в рамках ОПЕК+. Турция — газовый хаб.</div>
+            <div class="badge-rus">Влияние на мировой рынок нефти</div>
+          </div>
+          <div class="relation-card">
+            <div class="relation-header">
+              <div class="relation-flag">🇰🇿🇺🇿🇹🇯</div>
+              <div class="relation-title">
+                <h3>Центральная Азия</h3>
+                <p>Интеграция и русский язык</p>
+              </div>
+            </div>
+            <div class="relation-stats"><span class="stat-badge">📦 ЕАЭС: $30 млрд</span><span class="stat-badge">👥 Мигранты: 3,5 млн</span></div>
+            <div class="relation-desc">ЕАЭС с Казахстаном, Киргизией. Русский язык — официальный язык ОДКБ и науки. Миллионы мигрантов из Таджикистана, Узбекистана.</div>
+            <div class="badge-rus">200+ филиалов российских вузов в ЦА</div>
+          </div>
+          <div class="relation-card">
+            <div class="relation-header">
+              <div class="relation-flag">🇻🇳</div>
+              <div class="relation-title">
+                <h3>Вьетнам</h3>
+                <p>Стратегические партнёры в Азии</p>
+              </div>
+            </div>
+            <div class="relation-stats"><span class="stat-badge">🛢️ Вьетсовпетро: 250 млн тонн</span><span class="stat-badge">✈️ Воентех: Су-30</span></div>
+            <div class="relation-desc">Совместное предприятие по добыче нефти. Поставки вооружений, подготовка кадров, атомная энергетика. Координация в ООН и АТЭС.</div>
+            <div class="badge-rus">5 000 вьетнамских студентов в РФ</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ИССЛЕДОВАНИЕ -->
+    <section id="research" style="background:#fefcf7;">
+      <div class="container">
+        <h2 class="section-title">Структура исследования</h2>
+        <div class="chapters-grid">
+          <div class="chapter-card"><strong>📘 Введение</strong> — Одинаев М.<br>Многополярность, место России.</div>
+          <div class="chapter-card"><strong>🌍 Гл.1</strong> — Алуру + Фыонг<br>Россия – Африка, Россия – Вьетнам.</div>
+          <div class="chapter-card"><strong>🕌 Гл.2</strong> — Гадалла + Кероллос<br>Культурная дипломатия, Ближний Восток.</div>
+          <div class="chapter-card"><strong>💡 Гл.3</strong> — Джураев И.<br>Наука, IT, образование: ЦА и РФ.</div>
+          <div class="chapter-card"><strong>📊 Заключение</strong> — Одинаев М.<br>Сценарии и прогнозы.</div>
+          <div class="chapter-card"><strong>📎 Приложение</strong><br>Инфографика, таблицы.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ВЫСТАВКА -->
+    <section id="exhibition">
+      <div class="container">
+        <h2 class="section-title">Выставка «Россия – территория диалога»</h2>
+        <div class="expo-block">
+          <h3><i class="fas fa-landmark"></i> Стенд: взгляд из Конго, Египта, Таджикистана, Вьетнама</h3>
+          <div class="expo-grid">
+            <div class="expo-sector">
+              <h4><i class="fas fa-tree"></i> Конго</h4>
+              <p>Энергетика, саммит Россия–Африка.</p>
+            </div>
+            <div class="expo-sector">
+              <h4><i class="fas fa-dragon"></i> Вьетнам</h4>
+              <p>Нефтегаз, образование.</p>
+            </div>
+            <div class="expo-sector">
+              <h4><i class="fas fa-pyramid"></i> Египет</h4>
+              <p>АЭС «Эд-Дабаа», туризм.</p>
+            </div>
+            <div class="expo-sector">
+              <h4><i class="fas fa-church"></i> Копты</h4>
+              <p>Русские центры, культура.</p>
+            </div>
+            <div class="expo-sector">
+              <h4><i class="fas fa-mountain"></i> Таджикистан</h4>
+              <p>Миграция, ЕАЭС, русские школы.</p>
+            </div>
+          </div>
+          <div class="badge-rus" style="background:#ffedd5; margin-top:24px;">QR-код на полное исследование</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 ОПРОСОВ (интерактив, локальное хранилище) -->
+    <section id="polls">
+      <div class="container">
+        <h2 class="section-title">5 опросов: ваше мнение о России и мире</h2>
+        <div class="section-sub">Примите участие в наших опросах. Результаты сохраняются локально и показывают динамику.</div>
+        <div class="polls-grid" id="pollsContainer"></div>
+      </div>
+    </section>
+
+    <!-- ЦИФРЫ И ФАКТЫ -->
+    <section>
+      <div class="container">
+        <h2 class="section-title">Россия в глобальных цифрах</h2>
+        <div class="stats-russia">
+          <div>
+            <div class="stat-number">17%</div>
+            <div>мирового газа</div>
+          </div>
+          <div>
+            <div class="stat-number">№1</div>
+            <div>по территории</div>
+          </div>
+          <div>
+            <div class="stat-number">30 тыс.</div>
+            <div>иностр. студентов</div>
+          </div>
+          <div>
+            <div class="stat-number">140+</div>
+            <div>дипломатических миссий</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- АВТОР (только автор, без руководства) -->
+    <div class="container">
+      <div class="author-card">
+        <i class="fas fa-feather-alt" style="font-size: 2.5rem; color:#dc2626; margin-bottom: 12px; display: inline-block;"></i>
+        <h3 style="margin: 8px 0; font-size: 1.6rem;">Автор проекта</h3>
+        <p style="font-size: 1.3rem; font-weight: 700;">Одинаев Мехроз</p>
+        <p><i class="fas fa-map-marker-alt"></i> Таджикистан</p>
+        <p style="max-width: 500px; margin: 12px auto 0; color: #475569;">Автор исследования «Россия и мир», инициатор международного коллективного анализа геополитики, экономики и культуры.</p>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container">
+        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px;">
+          <div><i class="fas fa-globe-europe"></i> Россия и мир — исследование 2026</div>
+          <div>Автор: Одинаев Мехроз | Таджикистан</div>
+        </div>
+        <div style="margin-top: 32px; text-align:center;">© Коллективный проект — команда из Конго, Египта, Таджикистана, Вьетнама</div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    // 5 опросов
+    const pollsData = [
+        { id: "poll_geo", question: "🌍 Геополитика: Какую роль сегодня играет Россия в многополярном мире?", options: ["Ключевого глобального центра силы", "Регионального лидера Евразии", "Моста между Западом и Востоком", "Страны с падающим влиянием"] },
+        { id: "poll_econ", question: "💰 Экономика: Какой регион — главный экономический партнёр России в ближайшие 5 лет?", options: ["Китай и Азия", "Страны Ближнего Востока", "Африка (энергетика, ресурсы)", "Постсоветское пространство (ЕАЭС)"] },
+        { id: "poll_culture", question: "🎭 Культура: Что укрепляет образ России за рубежом сильнее всего?", options: ["Русский язык и образование", "Музыка, балет, Эрмитаж", "Научные достижения (космос, атом)", "Дипломатические инициативы"] },
+        { id: "poll_future", question: "🔮 Будущее: Какой вектор самый перспективный для РФ сегодня?", options: ["Технологическое партнёрство (AI, космос)", "Энергетические проекты с Глобальным Югом", "Военно-политические союзы (ШОС, БРИКС)", "Гуманитарная дипломатия и молодёжные обмены"] },
+        { id: "poll_security", question: "🛡️ Безопасность: Какой союзник наиболее важен для России в военно-политической сфере?", options: ["Китай", "Индия", "Беларусь и ОДКБ", "Страны Ближнего Востока (Сирия, Иран)"] }
+    ];
+    
+    function initPolls() {
+        const container = document.getElementById("pollsContainer");
+        if (!container) return;
+        container.innerHTML = "";
+        pollsData.forEach(poll => {
+            let votes = JSON.parse(localStorage.getItem(poll.id)) || {};
+            let userVoted = localStorage.getItem(`${poll.id}_voted`) === "true";
+            const total = Object.values(votes).reduce((a,b)=>a+b,0);
+            const card = document.createElement("div");
+            card.className = "poll-card";
+            card.innerHTML = `<div class="poll-question"><i class="fas fa-poll"></i> ${poll.question}</div>
+                <div class="poll-options-list" id="options-${poll.id}"></div>
+                <button class="poll-vote-btn" data-poll="${poll.id}">📊 Проголосовать</button>
+                <div class="poll-results" id="results-${poll.id}" style="${total===0 ? 'display:none' : 'display:block'}"></div>
+                <button class="reset-poll-btn" data-poll="${poll.id}">⟳ Сбросить голоса</button>`;
+            container.appendChild(card);
+            const optionsDiv = card.querySelector(`.poll-options-list`);
+            poll.options.forEach((opt, idx) => {
+                const optDiv = document.createElement("div");
+                optDiv.className = "poll-option";
+                optDiv.innerHTML = `<input type="radio" name="${poll.id}_radio" value="${idx}" id="${poll.id}_${idx}" ${userVoted ? 'disabled' : ''}> <label for="${poll.id}_${idx}" style="flex:1; cursor:pointer;">${opt}</label>`;
+                optionsDiv.appendChild(optDiv);
+            });
+            function renderResults() {
+                const resultsDiv = card.querySelector(`#results-${poll.id}`);
+                const newVotes = JSON.parse(localStorage.getItem(poll.id)) || {};
+                const newTotal = Object.values(newVotes).reduce((a,b)=>a+b,0);
+                if (newTotal === 0) { resultsDiv.style.display = "none"; return; }
+                resultsDiv.style.display = "block";
+                resultsDiv.innerHTML = `<strong>📈 Результаты (${newTotal} голосов):</strong>`;
+                poll.options.forEach((opt, idx) => {
+                    const count = newVotes[idx] || 0;
+                    const percent = newTotal ? ((count / newTotal) * 100).toFixed(1) : 0;
+                    const resultItem = document.createElement("div");
+                    resultItem.style.marginTop = "10px";
+                    resultItem.innerHTML = `<div>${opt} — ${count} (${percent}%)</div><div class="result-bar"><div class="result-fill" style="width: ${percent}%;"></div></div>`;
+                    resultsDiv.appendChild(resultItem);
+                });
+            }
+            const voteBtn = card.querySelector(`.poll-vote-btn`);
+            voteBtn.onclick = () => {
+                if (userVoted) { alert("Вы уже голосовали. Сбросьте результаты для повторного голосования."); return; }
+                const selected = card.querySelector(`input[name="${poll.id}_radio"]:checked`);
+                if (!selected) { alert("Выберите вариант"); return; }
+                const val = parseInt(selected.value);
+                let currentVotes = JSON.parse(localStorage.getItem(poll.id)) || {};
+                currentVotes[val] = (currentVotes[val] || 0) + 1;
+                localStorage.setItem(poll.id, JSON.stringify(currentVotes));
+                localStorage.setItem(`${poll.id}_voted`, "true");
+                userVoted = true;
+                card.querySelectorAll(`input[name="${poll.id}_radio"]`).forEach(r => r.disabled = true);
+                renderResults();
+                alert("Спасибо за участие!");
+            };
+            const resetBtn = card.querySelector(`.reset-poll-btn`);
+            resetBtn.onclick = () => {
+                if (confirm("Сбросить все голоса в этом опросе?")) {
+                    localStorage.removeItem(poll.id);
+                    localStorage.removeItem(`${poll.id}_voted`);
+                    card.querySelectorAll(`input[name="${poll.id}_radio"]`).forEach(r => r.disabled = false);
+                    userVoted = false;
+                    renderResults();
+                }
+            };
+            renderResults();
+            if (userVoted) card.querySelectorAll(`input[name="${poll.id}_radio"]`).forEach(r => r.disabled = true);
+        });
+    }
+    window.addEventListener("DOMContentLoaded", initPolls);
+  </script>
+</body>
+
+</html>
